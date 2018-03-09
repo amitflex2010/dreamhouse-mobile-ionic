@@ -46,4 +46,4 @@ Follow these instructions to run it with the REST data services:
     ```
     ionic serve
     ```
-Enjoy Coding....
+
