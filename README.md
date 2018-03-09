@@ -1,6 +1,6 @@
 # Ionic DreamHouse
 
-MyDreamHouse is a sample application that demonstrates how to build mobile apps with Ionic 2. 
+MyDreamHouse is a sample application that demonstrates how to build mobile apps with Ionic. 
 
 ## Installation Instructions
 
