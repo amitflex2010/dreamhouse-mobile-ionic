@@ -12,6 +12,7 @@ import {PropertyListPage} from '../pages/property-list/property-list';
 import {PropertyDetailPage} from '../pages/property-detail/property-detail';
 import {BrokerListPage} from '../pages/broker-list/broker-list';
 import {BrokerDetailPage} from '../pages/broker-detail/broker-detail';
+import {BrokerPropertyDetailPage} from '../pages/broker-detail/broker-property-detail';
 import {FavoriteListPage} from '../pages/favorite-list/favorite-list';
 import {AboutPage} from '../pages/about/about';
 import {LoginPage} from '../pages/login/login';
@@ -43,7 +44,8 @@ export const firebaseConfig = {
     BrokerListPage,
     BrokerDetailPage,
     LoginPage,
-    HomePage
+    HomePage,
+    BrokerPropertyDetailPage
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,8 @@ export const firebaseConfig = {
     BrokerListPage,
     BrokerDetailPage,
     LoginPage,
-    HomePage
+    HomePage,
+    BrokerPropertyDetailPage
     
   ],
   providers: [

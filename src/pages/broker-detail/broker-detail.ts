@@ -1,20 +1,28 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {BrokerService} from '../../providers/broker-service-mock';
+import {BrokerPropertyDetailPage} from './broker-property-detail';
 
 @Component({
     selector: 'page-broker-detail',
     templateUrl: 'broker-detail.html'
 })
-export class BrokerDetailPage {
+export class BrokerDetailPage implements OnInit {
 
     broker: any;
-
     constructor(public navCtrl: NavController, public navParams: NavParams, public service: BrokerService) {
         this.broker = this.navParams.data;
-        service.findById(this.broker.id).then(
+    }
+
+    ngOnInit () {
+        this.service.findById(this.broker.id).then(
+           
             broker => this.broker = broker
         );
+    }
+
+    openPropertyDetail(property: any) {
+        this.navCtrl.push(BrokerPropertyDetailPage, property);
     }
 
 }

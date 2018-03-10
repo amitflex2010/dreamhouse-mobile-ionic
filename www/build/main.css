@@ -26682,6 +26682,11 @@ ion-navbar.toolbar {
   color: white;
 }
 
+ion-note {
+  color: #84BF41 !important;
+  font-size: 1.4rem !important;
+}
+
 .profile ion-card {
   margin-top: 100px;
   overflow: visible;
