@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
+import { Events } from 'ionic-angular';
 
 import {PropertyListPage} from '../pages/property-list/property-list';
 import {BrokerListPage} from '../pages/broker-list/broker-list';
@@ -30,9 +31,12 @@ export class MyApp {
 
     helpMenuItems: Array<MenuItem>;
 
-    constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-        this.initializeApp();
+    events:Events;
 
+    constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, events:Events) {
+        
+
+       
         this.appMenuItems = [
             {title: 'Properties', component: PropertyListPage, icon: 'home'},
             {title: 'Brokers', component: BrokerListPage, icon: 'people'},
@@ -49,6 +53,13 @@ export class MyApp {
             {title: 'About', component: AboutPage, icon: 'information-circle'},
         ];
 
+        events.subscribe('username:changed', username => {
+            if(username !== undefined && username !== ""){
+                this.accountMenuItems[0].title = username;
+            }
+         })
+
+        this.initializeApp();
     }
 
     initializeApp() {
@@ -58,11 +69,24 @@ export class MyApp {
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
         });
+        if(JSON.parse(localStorage.getItem('currentUser')) !=  null)
+        {
+            let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            this.accountMenuItems[0].title = currentUser.additionalUserInfo.profile.name;
+        }
     }
 
     openPage(page) {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
-        this.nav.setRoot(page.component);
+       if(page.title == 'Logout') {
+        localStorage.setItem('currentUser', null);
+        this.accountMenuItems[0].title = 'My Account';
+        this.nav.setRoot(WelcomePage);
+       }
+       else {
+         this.nav.setRoot(page.component);
+       }
+       
     }
 }
