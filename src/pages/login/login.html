@@ -1,15 +1,27 @@
-    <ion-header>
+<ion-header>
     <ion-navbar color="primary">
-            <ion-title>Login</ion-title>
+
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
     </ion-navbar>
 </ion-header>
-  
-  <ion-content padding>
-   
-    <button ion-button (click)="loginGoogle()">Login with Google</button><br>
-    <!--<button ion-button (click)="loginFacebook()">Login with Facebook</button>-->
-    
-  </ion-content>
+
+<ion-content class="login-content" padding>
+  <ion-row class="top-row">
+        <ion-col>
+          <h1 class="label-logo">Login</h1>
+          <p class="label-description">How would you like to log in?</p>
+        </ion-col>
+  </ion-row>
+  <ion-row>
+        <ion-col class="login-button">
+          <button ion-button block color="danger" (click)="loginGoogle()">Google Login</button>
+        </ion-col>
+  </ion-row>
+  <ion-row>
+        <ion-col class="login-button">
+          <button ion-button block color="facebook">Facebook Login</button>
+        </ion-col>
+  </ion-row>
+</ion-content>
