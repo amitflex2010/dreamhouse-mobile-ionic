@@ -4,7 +4,7 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content class="broker">
+<ion-content class="broker" *ngIf="broker.property">
 
     <ion-card>
 
@@ -15,26 +15,25 @@
         </ion-card-content>
 
         <ion-list>
-            <a href="tel:{{broker.Phone__c}}" ion-item>
-                <ion-icon name="call" item-left></ion-icon>
-                <p>Call Office</p>
-                <h2>{{broker.phone}}</h2>
-            </a>
+            
             <a href="tel:{{broker.phone}}" ion-item>
                 <ion-icon name="call" item-left></ion-icon>
                 <p>Call Mobile</p>
                 <h2>{{broker.mobilePhone}}</h2>
             </a>
-            <a href="tel:{{broker.phone}}" ion-item>
-                <ion-icon name="text" item-left></ion-icon>
-                <p>Text</p>
-                <h2>{{broker.mobilePhone}}</h2>
-            </a>
+        
             <a href="mailto:{{broker.email}}" ion-item>
                 <ion-icon name="mail" item-left></ion-icon>
                 <p>Email</p>
                 <h2>{{broker.email}}</h2>
             </a>
+            <button  ion-item (click)="openPropertyDetail(broker.property)">
+                    <ion-avatar item-left>
+                        <img src="{{broker.property.picture}}"/>
+                    </ion-avatar>
+                    <h2>{{broker.property.title}}</h2>
+                    <p>{{broker.property.price}}</p>
+            </button> 
         </ion-list>
 
     </ion-card>

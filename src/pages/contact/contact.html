@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Contact</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="cards-bg social-cards">
+
+  <ion-card>
+
+    <img src="assets/img/contact.png">
+
+    <ion-card-content>
+      <p>We are just a call away. You can call us during the week from Monday to Friday. Or you can mail us with your queries.</p>
+      <p>Please use any of below options to contact us. We love to hear from you</p>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <a href="tel:+31683078038" ion-item>
+          <ion-icon name="call" item-left></ion-icon>
+        </a>
+      </ion-col>
+      <ion-col>
+        <a href="mailto:abc@testmail.com" ion-item>
+          <ion-icon name="mail" item-left></ion-icon>
+        </a>
+      </ion-col>
+      <ion-col align-self-center text-center>
+        <a href="mailto:abc@testmail.com" ion-item>
+          <ion-icon name="logo-whatsapp" item-right></ion-icon>
+        </a>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>
+
+<style>
+  .social-cards ion-col {
+    padding: 0;
+  }
+</style>

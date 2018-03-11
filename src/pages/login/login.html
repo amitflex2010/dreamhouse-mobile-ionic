@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar color="primary">
+
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="login-content" padding>
+  <ion-row class="top-row">
+    <div class="avatar bottom-row"></div>
+  </ion-row>
+  <div class="bottom-row">
+    <div>
+      <button class="loginBtn loginBtn--google" (click)="loginGoogle()">Login with Google</button>
+    </div>
+    <div >
+      <button class="loginBtn loginBtn--facebook">Login with Facebook</button>
+    </div>
+  </div>
+</ion-content>

@@ -16,9 +16,19 @@
 
     <ion-list>
       <ion-list-header>
-        Help
+        Company
       </ion-list-header>
       <button menuClose ion-item *ngFor="let menuItem of helpMenuItems" (click)="openPage(menuItem)">
+        <ion-icon item-left [name]="menuItem.icon"></ion-icon>
+        {{menuItem.title}}
+      </button>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>
+        Contact
+      </ion-list-header>
+      <button menuClose ion-item *ngFor="let menuItem of contactMenuItems" (click)="openPage(menuItem)">
         <ion-icon item-left [name]="menuItem.icon"></ion-icon>
         {{menuItem.title}}
       </button>
