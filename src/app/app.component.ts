@@ -9,7 +9,8 @@ import {BrokerListPage} from '../pages/broker-list/broker-list';
 import {FavoriteListPage} from '../pages/favorite-list/favorite-list';
 import {WelcomePage} from '../pages/welcome/welcome';
 import {AboutPage} from '../pages/about/about';
-import { LoginPage } from '../pages/login/login';
+import {LoginPage} from '../pages/login/login';
+import {ContactPage} from '../pages/contact/contact';
 
 export interface MenuItem {
     title: string;
@@ -31,12 +32,14 @@ export class MyApp {
 
     helpMenuItems: Array<MenuItem>;
 
+    contactMenuItems: Array<MenuItem>;
+
     events:Events;
 
     constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, events:Events) {
-        
 
-       
+
+
         this.appMenuItems = [
             {title: 'Properties', component: PropertyListPage, icon: 'home'},
             {title: 'Brokers', component: BrokerListPage, icon: 'people'},
@@ -51,6 +54,10 @@ export class MyApp {
         this.helpMenuItems = [
             {title: 'Welcome', component: WelcomePage, icon: 'bookmark'},
             {title: 'About', component: AboutPage, icon: 'information-circle'},
+        ];
+
+        this.contactMenuItems = [
+          {title: 'Contact Us', component: ContactPage, icon: 'call'},
         ];
 
         events.subscribe('username:changed', username => {
@@ -87,6 +94,6 @@ export class MyApp {
        else {
          this.nav.setRoot(page.component);
        }
-       
+
     }
 }

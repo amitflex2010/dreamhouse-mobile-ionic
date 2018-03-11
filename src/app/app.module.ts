@@ -16,6 +16,7 @@ import {BrokerPropertyDetailPage} from '../pages/broker-detail/broker-property-d
 import {FavoriteListPage} from '../pages/favorite-list/favorite-list';
 import {AboutPage} from '../pages/about/about';
 import {LoginPage} from '../pages/login/login';
+import {ContactPage} from '../pages/contact/contact';
 
 import {PropertyService} from "../providers/property-service-mock";
 import {BrokerService} from "../providers/broker-service-mock";
@@ -45,7 +46,8 @@ export const firebaseConfig = {
     BrokerDetailPage,
     LoginPage,
     HomePage,
-    BrokerPropertyDetailPage
+    BrokerPropertyDetailPage,
+    ContactPage
   ],
   imports: [
     BrowserModule,
@@ -65,8 +67,9 @@ export const firebaseConfig = {
     BrokerDetailPage,
     LoginPage,
     HomePage,
-    BrokerPropertyDetailPage
-    
+    BrokerPropertyDetailPage,
+    ContactPage
+
   ],
   providers: [
     StatusBar,
