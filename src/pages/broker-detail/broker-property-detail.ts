@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {ActionSheetController, ActionSheet, NavController, NavParams, ToastController} from 'ionic-angular';
-import {BrokerDetailPage} from '../broker-detail/broker-detail';
 import {PropertyService} from '../../providers/property-service-mock';
 
 @Component({
