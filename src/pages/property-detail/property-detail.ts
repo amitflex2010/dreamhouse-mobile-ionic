@@ -10,9 +10,11 @@ import {PropertyService} from '../../providers/property-service-mock';
 export class PropertyDetailPage {
 
     property: any;
+    toast: ToastController;
 
     constructor(public actionSheetCtrl: ActionSheetController, public navCtrl: NavController, public navParams: NavParams, public propertyService: PropertyService, public toastCtrl: ToastController) {
         this.property = this.navParams.data;
+        this.toast = toastCtrl;
         propertyService.findById(this.property.id).then(
             property => this.property = property
         );
@@ -23,16 +25,31 @@ export class PropertyDetailPage {
     }
 
     favorite(property) {
+        let that = this;
         this.propertyService.favorite(property)
             .then(property => {
-                let toast = this.toastCtrl.create({
-                    message: 'Property added to your favorites',
-                    cssClass: 'mytoast',
-                    duration: 1000
-                });
-                toast.present(toast);
-            });
+                this.showToast('Property added to your favorites');
+            },
+            function(data) {
+                console.log(that)
+                if(data == 'No Logged-in user') {
+                    that.showToast('No Logged-in user to add favorites');
+                }
+            }
+        );
     }
+    
+    showToast(msg) {
+        let toast = this.toast.create({
+            message: msg,
+            cssClass: 'mytoast',
+            duration: 1000
+        });
+        
+        toast.present(toast);
+    }
+
+
 
     share(property) {
         let actionSheet: ActionSheet = this.actionSheetCtrl.create({

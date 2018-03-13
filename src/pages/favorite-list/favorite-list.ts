@@ -29,7 +29,10 @@ export class FavoriteListPage {
 
     getFavorites() {
         this.service.getFavorites()
-            .then(data => this.favorites = data);
+            .then(data => this.favorites = data,
+        function(err) {
+            console.log(err);
+        });
     }
 
 }
