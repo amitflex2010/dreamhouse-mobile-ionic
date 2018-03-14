@@ -22,12 +22,30 @@ export class PropertyService {
   }
 
   getFavorites() {
+
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(currentUser != null) {
+
+      this.favorites = JSON.parse(localStorage.getItem(currentUser));
+    }
+    else {
+      return Promise.reject('No Favorites')
+    }
     return Promise.resolve(this.favorites);
   }
 
   favorite(property) {
-    this.favoriteCounter = this.favoriteCounter + 1;
-    this.favorites.push({id: this.favoriteCounter, property: property});
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(currentUser != null) {
+      this.favoriteCounter = this.favoriteCounter + 1;
+      this.favorites.push({id: this.favoriteCounter, property: property});
+      localStorage.setItem(currentUser, JSON.stringify(this.favorites));
+    }
+    else {
+      return Promise.reject('No Logged-in user');
+     
+    }
+    
     return Promise.resolve();
   }
 
