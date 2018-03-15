@@ -11,6 +11,7 @@ import {WelcomePage} from '../pages/welcome/welcome';
 import {AboutPage} from '../pages/about/about';
 import {LoginPage} from '../pages/login/login';
 import {ContactPage} from '../pages/contact/contact';
+import { PropertyService } from '../providers/property-service-mock';
 
 export interface MenuItem {
     title: string;
@@ -36,7 +37,7 @@ export class MyApp {
 
     events:Events;
 
-    constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, events:Events) {
+    constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, events:Events, public propertyService: PropertyService) {
 
 
 
@@ -63,6 +64,7 @@ export class MyApp {
         events.subscribe('username:changed', username => {
             if(username !== undefined && username !== ""){
                 this.accountMenuItems[0].title = username;
+                this.propertyService.resetFavoritesForNewUser();
             }
          })
 
@@ -80,6 +82,7 @@ export class MyApp {
         {
             let currentUser = JSON.parse(localStorage.getItem('currentUser'));
             this.accountMenuItems[0].title = currentUser.additionalUserInfo.profile.name;
+
         }
     }
 
@@ -87,8 +90,6 @@ export class MyApp {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
        if(page.title == 'Logout') {
-       // let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-       // localStorage.setItem(currentUser, null);
         localStorage.setItem('currentUser', null);
         this.accountMenuItems[0].title = 'My Account';
         this.nav.setRoot(WelcomePage);
