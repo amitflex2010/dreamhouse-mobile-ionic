@@ -23,9 +23,8 @@ export class PropertyService {
 
   getFavorites() {
 
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')).additionalUserInfo.profile.name;
     if(currentUser != null) {
-
       this.favorites = JSON.parse(localStorage.getItem(currentUser));
     }
     else {
@@ -35,7 +34,7 @@ export class PropertyService {
   }
 
   favorite(property) {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')).additionalUserInfo.profile.name;
     if(currentUser != null) {
       this.favoriteCounter = this.favoriteCounter + 1;
       this.favorites.push({id: this.favoriteCounter, property: property});
@@ -50,11 +49,24 @@ export class PropertyService {
   }
 
   unfavorite(favorite) {
-    let index = this.favorites.indexOf(favorite);
-    if (index > -1) {
-      this.favorites.splice(index, 1);
+
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')).additionalUserInfo.profile.name;
+    if(currentUser != null) {
+      this.favorites = JSON.parse(localStorage.getItem(currentUser));
+      let index = this.favorites.indexOf(favorite);
+      if (index > -1) {
+        this.favorites.splice(index, 1);
+      }
     }
+    else {
+      return Promise.reject('No favorites');
+    }
+    
     return Promise.resolve();
+  }
+
+  resetFavoritesForNewUser() {
+    this.favorites.length = 0;
   }
 
 }
