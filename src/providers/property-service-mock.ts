@@ -36,6 +36,7 @@ export class PropertyService {
   favorite(property) {
     let currentUser = JSON.parse(localStorage.getItem('currentUser')).additionalUserInfo.profile.name;
     if(currentUser != null) {
+      console.log(this.favorites);
       this.favoriteCounter = this.favoriteCounter + 1;
       this.favorites.push({id: this.favoriteCounter, property: property});
       localStorage.setItem(currentUser, JSON.stringify(this.favorites));
@@ -66,6 +67,7 @@ export class PropertyService {
   }
 
   resetFavoritesForNewUser() {
+    console.log('here');
     this.favorites.length = 0;
   }
 
