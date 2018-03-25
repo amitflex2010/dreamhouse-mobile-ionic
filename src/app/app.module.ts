@@ -3,6 +3,8 @@ import { HttpModule } from '@angular/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { AngularFireModule} from 'angularfire2';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { AngularFireAuth  } from 'angularfire2/auth';
 
@@ -25,6 +27,7 @@ import { AuthService } from '../pages/login/auth.service';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
+import { LogoutPage } from '../pages/logout/logout';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyA2h8-EqMIdg2JQazC-O3E-C6BwYFnzJIU',
@@ -47,13 +50,15 @@ export const firebaseConfig = {
     LoginPage,
     HomePage,
     BrokerPropertyDetailPage,
-    ContactPage
+    ContactPage,
+    LogoutPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
     IonicModule.forRoot(MyApp),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -68,7 +73,8 @@ export const firebaseConfig = {
     LoginPage,
     HomePage,
     BrokerPropertyDetailPage,
-    ContactPage
+    ContactPage,
+    LogoutPage
 
   ],
   providers: [
@@ -76,7 +82,7 @@ export const firebaseConfig = {
     SplashScreen,
     PropertyService,
     BrokerService,
-    AuthService, AngularFireAuth,
+    AuthService, AngularFireAuth, AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

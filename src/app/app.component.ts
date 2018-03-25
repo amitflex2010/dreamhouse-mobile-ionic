@@ -12,6 +12,7 @@ import {AboutPage} from '../pages/about/about';
 import {LoginPage} from '../pages/login/login';
 import {ContactPage} from '../pages/contact/contact';
 import { PropertyService } from '../providers/property-service-mock';
+import { LogoutPage } from '../pages/logout/logout';
 
 export interface MenuItem {
     title: string;
@@ -37,7 +38,8 @@ export class MyApp {
 
     events:Events;
 
-    constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, events:Events, public propertyService: PropertyService) {
+    constructor(public platform: Platform, public statusBar: StatusBar, 
+        public splashScreen: SplashScreen, events:Events, public propertyService: PropertyService) {
 
 
 
@@ -49,7 +51,7 @@ export class MyApp {
 
         this.accountMenuItems = [
             {title: 'My Account', component: LoginPage, icon: 'ios-contact'},
-            {title: 'Logout', component: WelcomePage, icon: 'log-out'},
+            {title: 'Logout', component: LogoutPage, icon: 'log-out'},
         ];
 
         this.helpMenuItems = [
@@ -89,14 +91,8 @@ export class MyApp {
     openPage(page) {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
-       if(page.title == 'Logout') {
-        localStorage.setItem('currentUser', null);
-        this.accountMenuItems[0].title = 'My Account';
-        this.nav.setRoot(WelcomePage);
-       }
-       else {
-         this.nav.setRoot(page.component);
-       }
+        this.nav.setRoot(page.component);
+       
 
     }
 }
