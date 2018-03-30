@@ -14,6 +14,7 @@ export  class AuthService  {
 
     private basePath = '/user';
     private userList: Observable<any[]>;
+    private isUserExist: boolean;
 
     constructor (public afAuth: AngularFireAuth, private af: AngularFireDatabase) {
         this.getAllUsers()
@@ -61,28 +62,30 @@ export  class AuthService  {
     }
 
     addUsertoFireBase(user) {
-        const obj = this.af.database.ref(this.basePath);
-        console.log(user.additionalUserInfo.profile);
+       
         let userId = user.additionalUserInfo.profile.id
-        if(this.checkIfUserExist(userId)) {
-            obj.push(user.additionalUserInfo.profile);
-        }
-       
-       
+        this.addUniqueUser(userId);
     }
 
-    checkIfUserExist(userID) {
-      let data;
-      this.userList.map(response =>(data = response)).
-      filter(val => data.id === userID).map(val => data = val);
-      if(!(data.id == userID)) {
-        return true;
-      }  
+    private addUniqueUser(userId) {
+    let data;
+      this.userList.map(response =>(data = response))
+      .map(val => this.checkIfUserExist(val, userId));
+    }
+
+   private checkIfUserExist(data, userID) {
       
-    return false;
-
+        if(data.id == userID) {
+            this.isUserExist = true;
+            return;
+        }
+        if(!this.isUserExist) {
+            const obj = this.af.database.ref(this.basePath);
+            obj.push(data);
+            console.log('New user');
+        }
+        
     }
-
 
     getAllUsers(): Observable<any[]> {
         return this.af.list(this.basePath).valueChanges();

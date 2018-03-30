@@ -35,9 +35,9 @@ export class LoginPage implements OnInit {
      
       this.authService.loginWithGoogle().then(result =>{
         if (result) {
-          localStorage.setItem('currentUser', JSON.stringify(result));
+          localStorage.setItem('currentUser', JSON.stringify(result.additionalUserInfo.profile));
           this.authService.addUsertoFireBase(result);
-          this.navCtrl.setRoot(HomePage, {data:result});
+          this.navCtrl.setRoot(HomePage, {data:result.additionalUserInfo.profile});
           this.events.publish('username:changed', result.additionalUserInfo.profile.name);
         } 
     });

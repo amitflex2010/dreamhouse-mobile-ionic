@@ -80,10 +80,11 @@ export class MyApp {
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
         });
+        console.log(JSON.parse(localStorage.getItem('currentUser')));
         if(JSON.parse(localStorage.getItem('currentUser')) !=  null)
         {
             let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            this.accountMenuItems[0].title = currentUser.additionalUserInfo.profile.name;
+            this.accountMenuItems[0].title = currentUser.name;
 
         }
     }
