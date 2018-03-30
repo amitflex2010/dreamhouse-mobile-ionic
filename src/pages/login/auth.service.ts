@@ -1,21 +1,32 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { AuthProvider } from '@firebase/auth-types';
 import { isMobileCordova } from '@firebase/util';
 import { AngularFireDatabase, AngularFireList  } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
-export  class AuthService implements OnInit {
+export  class AuthService  {
 
     dbref: AngularFireList<any[]>;
 
-    constructor (public afAuth: AngularFireAuth, private af: AngularFireDatabase) {}
+    private basePath = '/user';
+    private userList: Observable<any[]>;
+    private isUserExist: boolean;
 
-    ngOnInit() {
-      this.dbref =  this.af.list('/user');
+    constructor (public afAuth: AngularFireAuth, private af: AngularFireDatabase) {
+        this.getAllUsers()
+        .map(response => response)
+        .subscribe(result => this.initAppData(result))
     }
+
+    initAppData(userdata) {
+        this.userList = userdata;
+    }
+
+    
 
     loginWithGoogle() {
         const provider = new firebase.auth.GoogleAuthProvider();
@@ -51,7 +62,32 @@ export  class AuthService implements OnInit {
     }
 
     addUsertoFireBase(user) {
-      //  console.log( this.dbref);
-      //  this.db.push(user);
+       
+        let userId = user.additionalUserInfo.profile.id
+        this.addUniqueUser(userId);
     }
+
+    private addUniqueUser(userId) {
+    let data;
+      this.userList.map(response =>(data = response))
+      .map(val => this.checkIfUserExist(val, userId));
+    }
+
+   private checkIfUserExist(data, userID) {
+      
+        if(data.id == userID) {
+            this.isUserExist = true;
+            return;
+        }
+        if(!this.isUserExist) {
+            const obj = this.af.database.ref(this.basePath);
+            obj.push(data);
+            console.log('New user');
+        }
+        
+    }
+
+    getAllUsers(): Observable<any[]> {
+        return this.af.list(this.basePath).valueChanges();
+      }
 }

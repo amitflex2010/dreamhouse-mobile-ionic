@@ -9,7 +9,7 @@ export class HomePage {
 
   userData: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.userData = this.navParams.data.data.additionalUserInfo.profile;
+    this.userData = this.navParams.data.data;
    
    }
 

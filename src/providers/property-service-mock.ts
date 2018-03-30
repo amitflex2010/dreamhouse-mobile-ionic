@@ -1,11 +1,18 @@
 import {Injectable} from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import properties from './mock-properties';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
 export class PropertyService {
 
   favoriteCounter: number = 0;
   favorites: Array<any> = [];
+  private basePath: string = '/favorites';
+  private userList: Observable<any[]>;
+
+  constructor(public afAuth: AngularFireAuth, private af: AngularFireDatabase){}
 
   findAll() {
     return Promise.resolve(properties);
@@ -23,9 +30,9 @@ export class PropertyService {
 
   getFavorites() {
 
-    let currentUser = JSON.parse(localStorage.getItem('currentUser')).additionalUserInfo.profile.name;
-    if(currentUser != null) {
-      this.favorites = JSON.parse(localStorage.getItem(currentUser));
+    let currentUserId = JSON.parse(localStorage.getItem('currentUser')).id;
+    if(currentUserId != null) {
+      this.favorites = JSON.parse(localStorage.getItem(currentUserId));
     }
     else {
       return Promise.reject('No Favorites')
@@ -33,13 +40,19 @@ export class PropertyService {
     return Promise.resolve(this.favorites);
   }
 
+  private addFavoritestoFireBase(favorite) {
+    const obj = this.af.database.ref(this.basePath);
+    obj.push(favorite);
+   }
+
   favorite(property) {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser')).additionalUserInfo.profile.name;
-    if(currentUser != null) {
+    let currentUserID = JSON.parse(localStorage.getItem('currentUser')).id;
+    if(currentUserID != null) {
       console.log(this.favorites);
       this.favoriteCounter = this.favoriteCounter + 1;
-      this.favorites.push({id: this.favoriteCounter, property: property});
-      localStorage.setItem(currentUser, JSON.stringify(this.favorites));
+      this.favorites.push({id: this.favoriteCounter, userid:currentUserID, property: property});
+      this.addFavoritestoFireBase({userid:currentUserID, property: property});
+      localStorage.setItem(currentUserID, JSON.stringify(this.favorites));
     }
     else {
       return Promise.reject('No Logged-in user');
@@ -67,7 +80,7 @@ export class PropertyService {
   }
 
   resetFavoritesForNewUser() {
-    console.log('here');
+    console.log('resetFavoritesForNewUser');
     this.favorites.length = 0;
   }
 

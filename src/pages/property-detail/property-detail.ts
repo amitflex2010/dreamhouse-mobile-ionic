@@ -31,7 +31,6 @@ export class PropertyDetailPage {
                 this.showToast('Property added to your favorites');
             },
             function(data) {
-                console.log(that)
                 if(data == 'No Logged-in user') {
                     that.showToast('No Logged-in user to add favorites');
                 }
